@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPS</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #all{
+            display: flex;
+
+        }
+        #left{
+            width: 50%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #right{
+            width: 50%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .bt{
+            width: 150px;
+            height: 150px;  
+            font-size: 20px;
+            border-radius: 10px;
+            margin: 10px;
+        }
+        #p1,#p2{
+            width: 200px;
+            height: 40px;
+            border-radius: 5px;
+            padding: 5PX;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <p id="hs" >Highest Score : </p>
+    </center>
+    <div id="all">
+        <div id="left">
+            <input type="text" id="p1" placeholder="enter player 1 name">
+            <p id="p1name"></p>
+            <p id="score1"></p>
+            <input type="submit" value="submit" onclick="setname(1)">
+            <input type="button" id="Rock1" value="Rock" class="bt 1" onclick="run1(11)">
+            <input type="button" id="Paper1" value="Paper" class="bt 1" onclick="run1(12)">
+            <input type="button" id="Scissor1" value="Scissor" class="bt 1" onclick="run1(13)">
+        </div>
+        <div id="right">
+            <input type="text" id="p2" placeholder="enter player 2 name">
+            <p id="p2name"></p>
+            <p id="score2"></p>
+            <input type="submit" value="submit" onclick="setname(2)">
+            <input type="button" id="Rock2" value="Rock" class="bt 2" onclick="run2(11)">
+            <input type="button" id="Paper2" value="Paper" class="bt 2" onclick="run2(12)">
+            <input type="button" id="Scissor2" value="Scissor" class="bt 2" onclick="run2(13)">
+        </div>
+    </div>
+    <center>
+        <input type="button" value="submit" onclick="end()">
+    </center>
+
+
+    <script>
+        var p1name="player1",p2name="player2";
+        var p1,p2;
+        var p1s = 0,p2s = 0
+        const end = () => {
+            if(p1==1&&p2==3 || p1==2&&p2==1 || p1==3&&p2==2){
+                window.alert(p1name + " wins")
+                p1s++;
+                
+            }
+            else if(p2==1&&p1==3 || p2==2&&p1==1 || p2==3&&p1==2){
+                
+                window.alert(p2name + "wins")
+                p2s++;
+            }
+            else{
+                window.alert("draw");
+            }
+            
+            var high;
+            if(p1s>p2s){
+                high = p1s;
+            }
+            else{
+                high = p2s;
+            }
+            console.log(high);
+            var h = localStorage.getItem("high");
+            
+            if(h==null){
+                localStorage.setItem("high",high)
+            }
+            else{
+                if(high > parseInt(h)){
+                    localStorage.setItem("high",high);
+                }
+            }
+            p1=0;
+            p2=0;
+            document.getElementById("score1").innerHTML = "score1 : "+p1s
+            document.getElementById("score2").innerHTML = "score1 : "+p2s 
+            document.getElementById("Rock1").style.backgroundColor = "buttonface"
+            document.getElementById("Paper1").style.backgroundColor = "buttonface"
+            document.getElementById("Scissor1").style.backgroundColor = "buttonface"
+            document.getElementById("Rock2").style.backgroundColor = "buttonface"
+            document.getElementById("Paper2").style.backgroundColor = "buttonface"
+            document.getElementById("Scissor2").style.backgroundColor = "buttonface"
+            var hs = localStorage.getItem("high");
+            document.getElementById("hs").innerHTML = "Highest Score :" + hs;
+        }
+        const run1 = (val) =>{
+            document.getElementById("Rock1").style.backgroundColor = "buttonface"
+            document.getElementById("Paper1").style.backgroundColor = "buttonface"
+            document.getElementById("Scissor1").style.backgroundColor = "buttonface"
+            if(val == 11){
+                document.getElementById("Rock1").style.backgroundColor = "blue";
+                p1 = 1;
+            }
+            else if(val == 12){
+                document.getElementById("Paper1").style.backgroundColor = "blue"
+                p1 = 2;
+            }
+            else if(val==13){
+                document.getElementById("Scissor1").style.backgroundColor = "blue"
+                p1 = 3;
+            }
+        }
+
+        const run2 = (val) =>{
+            document.getElementById("Rock2").style.backgroundColor = "buttonface"
+            document.getElementById("Paper2").style.backgroundColor = "buttonface"
+            document.getElementById("Scissor2").style.backgroundColor = "buttonface"
+            if(val == 11){
+                document.getElementById("Rock2").style.backgroundColor = "blue";
+                p2 = 1;
+            }
+            else if(val == 12){
+                document.getElementById("Paper2").style.backgroundColor = "blue"
+                p2 = 2;
+            }
+            else if(val==13){
+                document.getElementById("Scissor2").style.backgroundColor = "blue"
+                p2 = 3;
+            }
+        }
+        function setname(x){
+            if(x==1){
+                p1name = document.getElementById("p1").value;
+                document.getElementById("p1").style.display = "none";
+                document.getElementById("p1name").innerHTML = p1name;
+            }
+            else if(x==2){
+                p2name = document.getElementById("p2").value;
+                document.getElementById("p2").style.display = "none";
+                document.getElementById("p2name").innerHTML = p2name;
+            }
+        }
+
+        
+    </script>
+</body>
+</html>
